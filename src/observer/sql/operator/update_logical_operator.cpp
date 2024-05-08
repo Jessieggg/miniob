@@ -9,15 +9,11 @@ MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
 See the Mulan PSL v2 for more details. */
 
 //
-// Created by Wangyunlai on 2022/12/08.
+// Created by niuxn on 2023/4/25.
 //
 
-#include "sql/operator/logical_operator.h"
-
-LogicalOperator::~LogicalOperator()
-{}
-
-void LogicalOperator::add_child(std::unique_ptr<LogicalOperator> oper)
+#include "sql/operator/update_logical_operator.h"
+UpdateLogicalOperator::UpdateLogicalOperator(Table *table, std::vector<Value>& values,std::vector<FieldMeta>& fields)
+    : table_(table), values_(values),fields_(fields)
 {
-  children_.emplace_back(std::move(oper));
 }
