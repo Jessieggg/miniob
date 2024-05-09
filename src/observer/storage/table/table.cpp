@@ -15,6 +15,9 @@ See the Mulan PSL v2 for more details. */
 #include <algorithm>
 #include <limits.h>
 #include <string.h>
+#include <string>
+#include <iostream>
+#include <cstdio>
 
 #include "common/defs.h"
 #include "common/lang/string.h"
@@ -580,7 +583,10 @@ RC Table::update_record(Record &record ,const char* attr_name,Value * value)
       return RC::SCHEMA_FIELD_NOT_EXIST;
   }
   //判断 新值与旧值是否相等
-  if( 0 == memcmp(record.data()+field_offset,value->data(),field_length))
+  // printf("%.*s\n", field_length, record.data() + field_offset);
+  // const char * str = value->data();
+  // printf("%s,length=%ld\n", str,strlen(str));
+  if( 0 == memcmp(record.data()+field_offset,value->data(),strlen(value->data())))
   {
     LOG_WARN("update old value equals new value");
     return RC::RECORD_DUPLICATE_KEY;
@@ -589,7 +595,20 @@ RC Table::update_record(Record &record ,const char* attr_name,Value * value)
   char *old_data = record.data();//old_data不能释放，其指向的是frame中的内存
   char *data = new char[table_meta_.record_size()];  // new_record->data
   memcpy(data, old_data, table_meta_.record_size());
-  memcpy(data + field_offset, value->data(), field_length);
+
+  if(value->attr_type()==CHARS){
+    const char *value_data = value->data(); // 假定这是你的源字符串
+    size_t value_length = strlen(value_data); // 获取源字符串的实际长度
+
+    // 复制数据
+    memcpy(data + field_offset, value_data, value_length);
+
+    if(value_length < static_cast<size_t>(field_length)){
+      memset(data + field_offset + value_length, '\0', field_length - value_length);
+    }
+  }
+  else memcpy(data + field_offset,value->data(),field_length);
+
   record.set_data(data);//谁来管理old_data呢？
   if(is_index)
   {
