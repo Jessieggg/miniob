@@ -9,9 +9,50 @@ MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
 See the Mulan PSL v2 for more details. */
 
 //
-// Created by Wangyunlai on 2022/12/15
+// Created by WangYunlai on 2022/12/08.
 //
 
-#include "sql/operator/project_logical_operator.h"
+// #pragma once
 
-ProjectLogicalOperator::ProjectLogicalOperator(const std::vector<Field> &fields) : fields_(fields) {}
+#include <vector>
+#include <memory>
+
+#include "sql/operator/logical_operator.h"
+#include "sql/expr/expression.h"
+#include "storage/field/field.h"
+
+/**
+ * @brief project 表示投影运算
+ * @ingroup LogicalOperator
+ * @details 从表中获取数据后，可能需要过滤，投影，连接等等。
+ */
+class ProjectLogicalOperator : public LogicalOperator 
+{
+public:
+  ProjectLogicalOperator(std::vector<std::unique_ptr<Expression>> projects) {
+    expressions_.swap(projects);
+  }
+  virtual ~ProjectLogicalOperator() = default;
+
+  LogicalOperatorType type() const override
+  {
+    return LogicalOperatorType::PROJECTION;
+  }
+
+  std::vector<std::unique_ptr<Expression>> &projects()
+  {
+    return expressions_;
+  }
+  const std::vector<std::unique_ptr<Expression>> &projects() const
+  {
+    return expressions_;
+  }
+  std::vector<std::unique_ptr<Expression>> &expressions()
+  {
+    return expressions_;
+  }
+  const std::vector<std::unique_ptr<Expression>> &expressions() const
+  {
+    return expressions_;
+  }
+};
