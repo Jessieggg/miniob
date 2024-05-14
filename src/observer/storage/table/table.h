@@ -80,7 +80,8 @@ public:
 
   // TODO refactor
   RC create_index(Trx *trx, const FieldMeta *field_meta, const char *index_name);
-
+  //将该record的attr_name列更新为 value
+  RC update_record(Record &record ,const char* attr_name,Value * value);
   RC get_record_scanner(RecordFileScanner &scanner, Trx *trx, bool readonly);
 
   RecordFileHandler *record_handler() const { return record_handler_; }
@@ -92,6 +93,7 @@ public:
   const TableMeta &table_meta() const;
 
   RC sync();
+  RC drop(const char *dir);
 
 private:
   RC insert_entry_of_indexes(const char *record, const RID &rid);

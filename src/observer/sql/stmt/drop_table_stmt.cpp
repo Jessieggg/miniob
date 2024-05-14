@@ -9,15 +9,15 @@ MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
 See the Mulan PSL v2 for more details. */
 
 //
-// Created by Wangyunlai on 2022/12/08.
+// Created by Wangyunlai on 2023/6/13.
 //
 
-#include "sql/operator/logical_operator.h"
+#include "sql/stmt/drop_table_stmt.h"
+#include "event/sql_debug.h"
 
-LogicalOperator::~LogicalOperator()
-{}
-
-void LogicalOperator::add_child(std::unique_ptr<LogicalOperator> oper)
+RC DropTableStmt::create(Db *db, const DropTableSqlNode &drop_table, Stmt *&stmt)
 {
-  children_.emplace_back(std::move(oper));
+  stmt = new DropTableStmt(drop_table.relation_name);
+  sql_debug("drop table statement: table name %s", drop_table.relation_name.c_str());
+  return RC::SUCCESS;
 }
