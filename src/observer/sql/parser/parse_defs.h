@@ -252,6 +252,7 @@ struct ErrorSqlNode
   std::string error_msg;
   int         line;
   int         column;
+  int         flag;
 };
 
 /**
