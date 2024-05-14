@@ -428,11 +428,11 @@ static const YY_CHAR yy_ec[256] =
        18,   19,    1,    1,   20,   21,   22,   23,   24,   25,
        26,   27,   28,   29,   30,   31,   32,   33,   34,   35,
        29,   36,   37,   38,   39,   40,   41,   42,   43,   29,
-        1,    1,    1,    1,   44,    1,   45,   46,   47,   48,
+        1,    1,    1,    1,   29,    1,   44,   45,   46,   47,
 
-       49,   50,   51,   52,   53,   29,   54,   55,   56,   57,
-       58,   59,   29,   60,   61,   62,   63,   64,   65,   66,
-       67,   29,    1,    1,    1,    1,    1,    1,    1,    1,
+       48,   49,   50,   51,   52,   29,   53,   54,   55,   56,
+       57,   58,   29,   59,   60,   61,   62,   63,   64,   65,
+       66,   29,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -449,7 +449,7 @@ static const YY_CHAR yy_ec[256] =
         1,    1,    1,    1,    1
     } ;
 
-static const YY_CHAR yy_meta[68] =
+static const YY_CHAR yy_meta[67] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    2,    1,    1,    1,    1,    2,
@@ -457,7 +457,7 @@ static const YY_CHAR yy_meta[68] =
         2,    2,    2,    2,    2,    2,    2,    2,    2,    2,
         2,    2,    2,    2,    2,    2,    2,    2,    2,    2,
         2,    2,    2,    2,    2,    2,    2,    2,    2,    2,
-        2,    2,    2,    2,    2,    2,    2
+        2,    2,    2,    2,    2,    2
     } ;
 
 static const flex_int16_t yy_base[177] =
@@ -1186,22 +1186,22 @@ RETURN_TOKEN(FLOAT_T);
 case 35:
 YY_RULE_SETUP
 #line 113 "lex_sql.l"
-RETURN_TOKEN(DATE_T);
+RETURN_TOKEN(LOAD);
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
 #line 114 "lex_sql.l"
-RETURN_TOKEN(DATE_FORMAT);
+RETURN_TOKEN(DATA);
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
 #line 115 "lex_sql.l"
-RETURN_TOKEN(LOAD);
+RETURN_TOKEN(INFILE);
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
 #line 116 "lex_sql.l"
-RETURN_TOKEN(DATA);
+RETURN_TOKEN(EXPLAIN);
 	YY_BREAK
 case 39:
 YY_RULE_SETUP

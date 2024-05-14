@@ -15,11 +15,10 @@ See the Mulan PSL v2 for more details. */
 #include "sql/parser/value.h"
 #include "common/lang/comparator.h"
 #include "common/lang/string.h"
-#include "common/date/date.h"
 #include "common/log/log.h"
 #include <sstream>
 
-const char *ATTR_TYPE_NAME[] = {"undefined", "chars", "ints", "floats", "dates","booleans"};
+const char *ATTR_TYPE_NAME[] = {"undefined", "chars", "ints", "floats", "booleans"};
 
 const char *attr_type_to_string(AttrType type)
 {
@@ -60,10 +59,6 @@ void Value::set_data(char *data, int length)
       num_value_.float_value_ = *(float *)data;
       length_                 = length;
     } break;
-    case DATES:{
-      num_value_.int_value_ = *(int *)data;
-      length                = length;
-    }break;
     case BOOLEANS: {
       num_value_.bool_value_ = *(int *)data != 0;
       length_                = length;
@@ -86,14 +81,6 @@ void Value::set_float(float val)
   num_value_.float_value_ = val;
   length_                 = sizeof(val);
 }
-
-void Value::set_date(int val)
-{
-  attr_type_            = DATES;
-  num_value_.int_value_ = val;
-  length_               = sizeof(val);
-}
-
 void Value::set_boolean(bool val)
 {
   attr_type_             = BOOLEANS;
@@ -120,9 +107,6 @@ void Value::set_value(const Value &value)
     } break;
     case FLOATS: {
       set_float(value.get_float());
-    } break;
-    case DATES:{
-      set_date(value.get_int());
     } break;
     case CHARS: {
       set_string(value.get_string().c_str());
@@ -158,9 +142,6 @@ std::string Value::to_string() const
     case FLOATS: {
       os << common::double_to_str(num_value_.float_value_);
     } break;
-    case DATES:{
-      os << date_to_string(num_value_.int_value_);
-    } break;
     case BOOLEANS: {
       os << num_value_.bool_value_;
     } break;
@@ -183,9 +164,6 @@ int Value::compare(const Value &other) const
       } break;
       case FLOATS: {
         return common::compare_float((void *)&this->num_value_.float_value_, (void *)&other.num_value_.float_value_);
-      } break;
-      case DATES: {
-        return common::compare_int((void *)&this->num_value_.float_value_, (void *)&other.num_value_.float_value_);
       } break;
       case CHARS: {
         return common::compare_string((void *)this->str_value_.c_str(),
@@ -222,7 +200,6 @@ int Value::get_int() const
         return 0;
       }
     }
-    case DATES:
     case INTS: {
       return num_value_.int_value_;
     }
