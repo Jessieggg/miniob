@@ -576,10 +576,10 @@ insert_value:
     LBRACE expression value_list RBRACE 
     {
       Value tmp;
-      // if(!exp2value($2, tmp)) {
-      //   yyerror(&@$, sql_string, sql_result, scanner, "error");
-      //   YYERROR;
-      // }
+      if(!exp2value($2, tmp)) {
+        yyerror(&@$, sql_string, sql_result, scanner, "error");
+        YYERROR;
+      }
       if ($3 != nullptr) {
         $$ = $3;
       } else {
@@ -598,10 +598,10 @@ value_list:
     }
     | COMMA expression value_list  { 
       Value tmp;
-      // if(!exp2value($2,tmp)) {
-      //   yyerror(&@$, sql_string, sql_result, scanner, "error");
-      //   YYERROR;
-      // }
+      if(!exp2value($2,tmp)) {
+        yyerror(&@$, sql_string, sql_result, scanner, "error");
+        YYERROR;
+      }
       if ($3 != nullptr) {
         $$ = $3;
       } else {

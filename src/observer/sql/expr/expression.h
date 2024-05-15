@@ -528,6 +528,7 @@ private:
   std::unique_ptr<Expression> right_;
 };
 
+
 static bool exp2value(Expression * exp,Value & value)
 {
   if(exp->type() == ExprType::VALUE) {
@@ -793,7 +794,7 @@ public:
 
   RC get_value(const Tuple &tuple, Value &value) const override
   {
-    if (cur_idx_ >= (int)exprs_.size()) {
+    if (cur_idx_ >= exprs_.size()) {
       return RC::RECORD_EOF;
     }
     return exprs_[const_cast<int&>(cur_idx_)++]->get_value(tuple, value);

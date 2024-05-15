@@ -2273,10 +2273,10 @@ yyreduce:
 #line 577 "yacc_sql.y"
     {
       Value tmp;
-      // if(!exp2value($2, tmp)) {
-      //   yyerror(&@$, sql_string, sql_result, scanner, "error");
-      //   YYERROR;
-      // }
+      if(!exp2value((yyvsp[-2].expression), tmp)) {
+        yyerror(&(yyloc), sql_string, sql_result, scanner, "error");
+        YYERROR;
+      }
       if ((yyvsp[-1].value_list) != nullptr) {
         (yyval.value_list) = (yyvsp[-1].value_list);
       } else {
@@ -2301,10 +2301,10 @@ yyreduce:
 #line 599 "yacc_sql.y"
                                    { 
       Value tmp;
-      // if(!exp2value($2,tmp)) {
-      //   yyerror(&@$, sql_string, sql_result, scanner, "error");
-      //   YYERROR;
-      // }
+      if(!exp2value((yyvsp[-1].expression),tmp)) {
+        yyerror(&(yyloc), sql_string, sql_result, scanner, "error");
+        YYERROR;
+      }
       if ((yyvsp[0].value_list) != nullptr) {
         (yyval.value_list) = (yyvsp[0].value_list);
       } else {

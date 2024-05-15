@@ -178,9 +178,6 @@ void Value::set_value(const Value &value)
     case UNDEFINED: {
       ASSERT(false, "got an invalid value type");
     } break;
-    default: {
-
-    }
   }
 }
 
@@ -255,9 +252,9 @@ int Value::compare(const Value &other) const
       case FLOATS: {
         return common::compare_float((void *)&this->num_value_.float_value_, (void *)&other.num_value_.float_value_);
       } break;
-      // case DOUBLES: {
-      //   return common::compare_double((void *)&this->num_value_.double_value_, (void *)&other.num_value_.double_value_);
-      // } break;
+      case DOUBLES: {
+        return common::compare_double((void *)&this->num_value_.double_value_, (void *)&other.num_value_.double_value_);
+      } break;
       case CHARS: {
         return common::compare_string((void *)this->str_value_.c_str(),
             this->str_value_.length(),
@@ -289,10 +286,10 @@ int Value::compare(const Value &other) const
   // } else if (this->attr_type_ == DOUBLES && other.attr_type_ == FLOATS) {
   //   float other_data = other.num_value_.float_value_;
   //   return common::compare_double((void *)&this->num_value_.double_value_, (void *)&other_data);
-  // } else {
-  //   double this_data = this->get_double();
-  //   double other_data = other.get_double();
-  //   return common::compare_double((void *)&this_data, (void *)&other_data);
+  } else {
+    double this_data = this->get_double();
+    double other_data = other.get_double();
+    return common::compare_double((void *)&this_data, (void *)&other_data);
   }
   LOG_WARN("not supported");
   return -1;  // TODO return rc?

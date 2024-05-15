@@ -199,10 +199,8 @@ public:
         break;
       case DOUBLES:
       {
-        if (ATTR_TYPE_LENGTH[0] == -1){
-          double tmp = get_double();
-          set_double(tmp);
-        }
+        double tmp = get_double();
+        set_double(tmp);
       }
         break;
       case CHARS:
